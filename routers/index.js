@@ -2,7 +2,11 @@
  * routers
  */
 
-module.exports = function(app, Book) {
+module.exports = function(app) {
+
+  // define models
+  var Book = require('../models/book');
+
   /**
    * @api {get} /api/books Request Book list
    * @apiName GetBooks
@@ -34,14 +38,18 @@ module.exports = function(app, Book) {
     book.author = req.body.author;
     book.publishedDate = new Date(req.body.publishedDate);
 
-    book.save(function(err){
-      if(err){
-          console.error(err);
-          res.json({result: 0});
-          return;
+    book.save(function(err) {
+      if (err) {
+        console.error(err);
+        res.json({
+          result: 0
+        });
+        return;
       }
 
-      res.json({result: 1});
+      res.json({
+        result: 1
+      });
     });
   });
 
